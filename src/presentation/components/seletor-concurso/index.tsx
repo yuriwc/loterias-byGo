@@ -32,8 +32,10 @@ export default function SeletorConcurso({ onCriarConcurso }: SeletorConcursoProp
           variant="primary"
           onClick={handleCriarConcurso}
           isDisabled={!numeroConcurso || parseInt(numeroConcurso) <= 0}
+          className="text-2xl font-bold"
+          size="lg"
         >
-          Criar Concurso
+          +
         </Button>
       </div>
     </div>

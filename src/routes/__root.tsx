@@ -1,11 +1,20 @@
-import { createRootRoute, Outlet, Link } from '@tanstack/react-router'
+import { createRootRoute, Outlet, useNavigate, useRouterState } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { Button } from '@heroui/react'
 
 export const Route = createRootRoute({
   component: RootComponent,
 })
 
 function RootComponent() {
+  const navigate = useNavigate()
+  const routerState = useRouterState()
+
+  // Determina qual rota está ativa
+  const currentPath = routerState.location.pathname
+  const isApostasActive = currentPath === '/apostas' || currentPath === '/'
+  const isResultadosActive = currentPath === '/resultados'
+
   return (
     <>
       {/* Navegação */}
@@ -16,21 +25,21 @@ function RootComponent() {
               <h1 className="text-2xl font-bold text-primary">Lotofácil</h1>
             </div>
 
-            <div className="flex gap-4">
-              <Link
-                to="/apostas"
-                className="px-4 py-2 rounded-lg font-medium transition-colors [&.active]:bg-primary [&.active]:text-white hover:bg-gray-100"
-                activeProps={{ className: 'bg-primary text-white' }}
+            <div className="flex gap-2">
+              <Button
+                variant={isApostasActive ? 'primary' : 'secondary'}
+                onClick={() => navigate({ to: '/apostas' })}
+                size="md"
               >
-                Criar Apostas
-              </Link>
-              <Link
-                to="/resultados"
-                className="px-4 py-2 rounded-lg font-medium transition-colors [&.active]:bg-primary [&.active]:text-white hover:bg-gray-100"
-                activeProps={{ className: 'bg-primary text-white' }}
+                Apostas
+              </Button>
+              <Button
+                variant={isResultadosActive ? 'primary' : 'secondary'}
+                onClick={() => navigate({ to: '/resultados' })}
+                size="md"
               >
-                Acompanhar Resultados
-              </Link>
+                Resultados
+              </Button>
             </div>
           </div>
         </div>
