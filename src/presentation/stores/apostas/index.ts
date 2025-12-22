@@ -40,7 +40,18 @@ const customStorage = {
             // Reconstruir as instâncias de classes
             if (state.concursoAtual) {
                 const concurso = new Concurso(state.concursoAtual.numeroConcurso)
-                // Restaurar números sorteados
+
+                // Primeiro, reconstruir e adicionar as apostas ao concurso
+                if (state.apostas) {
+                    state.apostas = state.apostas.map((a: SerializedAposta) => {
+                        const lotofacil = new Lotofacil(a.dezenas, a.concurso)
+                        // Adicionar aposta ao concurso
+                        concurso.criarApostaLotofacil(lotofacil)
+                        return lotofacil
+                    })
+                }
+
+                // Depois, restaurar números sorteados (isso atualizará os acertos)
                 state.concursoAtual.numerosSorteados.forEach((n: number) => {
                     try {
                         concurso.inserirDezena(n)
@@ -48,10 +59,10 @@ const customStorage = {
                         // Ignora erros de validação ao restaurar
                     }
                 })
-                state.concursoAtual = concurso
-            }
 
-            if (state.apostas) {
+                state.concursoAtual = concurso
+            } else if (state.apostas) {
+                // Se não houver concurso mas houver apostas, reconstruir apostas
                 state.apostas = state.apostas.map((a: SerializedAposta) =>
                     new Lotofacil(a.dezenas, a.concurso)
                 )
