@@ -12,6 +12,7 @@ interface ApostasStore {
     criarConcurso: (numeroConcurso: number) => void;
     adicionarAposta: (lotofacil: Lotofacil) => void;
     inserirDezena: (dezena: number) => void;
+    removerDezena: (dezena: number) => void;
     limparApostas: () => void;
     resetar: () => void;
 }
@@ -131,6 +132,17 @@ export const useApostasStore = create<ApostasStore>()(
                 concursoAtual.inserirDezena(dezena);
                 // Atualiza concurso E apostas (que foram modificadas internamente)
                 set({ concursoAtual, apostas: [...apostas] });  // ← Spread apostas
+            },
+
+            removerDezena: (dezena: number) => {
+                const {concursoAtual, apostas} = get();
+                if(!concursoAtual) {
+                    throw new Error("Nenhum concurso ativo.")
+                }
+
+                concursoAtual.removerDezena(dezena);
+                // Atualiza concurso E apostas (que foram modificadas internamente)
+                set({ concursoAtual, apostas: [...apostas] });
             },
 
             // Limpar todas as apostas

@@ -30,6 +30,12 @@ export class Lotofacil {
         this.acertos++;
     }
 
+    decrementaAcerto() {
+        if (this.acertos > 0) {
+            this.acertos--;
+        }
+    }
+
     get Dezenas() {
         return this.dezenas;
     }

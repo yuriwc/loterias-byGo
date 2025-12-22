@@ -44,6 +44,14 @@ export function useApostas() {
   };
 
   /**
+   * Remove uma dezena sorteada do concurso atual
+   * @param dezena - Número da dezena a ser removida
+   */
+  const removerDezena = (dezena: number) => {
+    store.removerDezena(dezena);
+  };
+
+  /**
    * Limpa todas as apostas do concurso atual
    */
   const limparApostas = () => {
@@ -71,6 +79,7 @@ export function useApostas() {
     criarConcurso,
     adicionarAposta,
     inserirDezena,
+    removerDezena,
     limparApostas,
     resetar,
   };

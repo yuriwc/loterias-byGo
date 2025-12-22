@@ -1,5 +1,9 @@
+@layer theme, base, components, utilities;
+
 @import "tailwindcss";
 @import "@heroui/styles";
+
+@import "./themes/lotofacil.css" layer(theme);
 
 * {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;

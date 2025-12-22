@@ -3,7 +3,7 @@ import ListaApostasComAcertos from "../components/ListaApostasComAcertos";
 import { useApostas } from "../hooks/useApostas";
 
 export default function AcompanharResultados() {
-  const { concursoAtual, apostas, inserirDezena } = useApostas();
+  const { concursoAtual, apostas, inserirDezena, removerDezena } = useApostas();
 
   const numerosSorteados = concursoAtual?.sorteados || [];
   const sorteioCompleto = numerosSorteados.length === 15;
@@ -16,15 +16,23 @@ export default function AcompanharResultados() {
     }
   };
 
+  const handleRemoverDezena = (dezena: number) => {
+    try {
+      removerDezena(dezena);
+    } catch (error) {
+      console.error("Erro ao remover dezena:", error);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Cabeçalho */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Lotofácil
           </h1>
-          <p className="text-gray-600">Acompanhar Resultados</p>
+          <p className="text-default-600">Acompanhar Resultados</p>
           {concursoAtual && (
             <p className="text-lg font-semibold text-primary mt-2">
               Concurso #{concursoAtual.concurso}
@@ -34,25 +42,28 @@ export default function AcompanharResultados() {
 
         {!concursoAtual ? (
           // Mensagem quando não há concurso ativo
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <p className="text-gray-600 text-lg">
+          <div className="bg-content1 rounded-lg shadow-lg p-8 text-center">
+            <p className="text-default-600 text-lg">
               Nenhum concurso ativo no momento.
             </p>
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-default-500 text-sm mt-2">
               Crie um concurso e adicione apostas primeiro.
             </p>
           </div>
         ) : (
           <>
             {/* Card de Sorteio */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-semibold mb-4">
+            <div className="bg-content1 rounded-lg shadow-lg p-6">
+              <h2 className="text-xl font-semibold mb-4 text-foreground">
                 Inserir Números Sorteados
               </h2>
+              <p className="text-sm text-default-600 mb-4">
+                Clique nos números para adicionar. Clique novamente para remover.
+              </p>
               <GridSorteio
                 numerosSorteados={numerosSorteados}
                 onInserirDezena={handleInserirDezena}
-                disabled={sorteioCompleto}
+                onRemoverDezena={handleRemoverDezena}
               />
 
               {sorteioCompleto && (
@@ -65,7 +76,7 @@ export default function AcompanharResultados() {
             </div>
 
             {/* Card de Apostas com Acertos */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-content1 rounded-lg shadow-lg p-6">
               <ListaApostasComAcertos
                 apostas={apostas}
                 numerosSorteados={numerosSorteados}
@@ -73,8 +84,8 @@ export default function AcompanharResultados() {
             </div>
 
             {/* Legendas */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-sm font-semibold mb-3 text-gray-700">
+            <div className="bg-content1 rounded-lg shadow-lg p-6">
+              <h3 className="text-sm font-semibold mb-3 text-foreground">
                 Legenda de Premiação:
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">

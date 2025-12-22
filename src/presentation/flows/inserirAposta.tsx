@@ -23,20 +23,20 @@ export default function InserirAposta() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-background p-8">
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Cabeçalho */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Lotofácil
           </h1>
-          <p className="text-gray-600">Criar nova aposta</p>
+          <p className="text-default-600">Criar nova aposta</p>
         </div>
 
         {/* Card Principal */}
-        <div className="bg-white rounded-lg shadow-lg p-6 space-y-6">
+        <div className="bg-content1 rounded-lg shadow-lg p-6 space-y-6">
           {/* Seletor de Concurso */}
-          <div className="pb-4 border-b border-gray-200">
+          <div className="pb-4 border-b border-default-200">
             <SeletorConcurso onCriarConcurso={criarConcurso} />
           </div>
 
@@ -50,7 +50,7 @@ export default function InserirAposta() {
           </div>
 
           {/* Ações */}
-          <div className="flex gap-3 pt-4 border-t border-gray-200">
+          <div className="flex gap-3 pt-4 border-t border-default-200">
             <Button
               variant="primary"
               className="flex-1"
@@ -71,12 +71,12 @@ export default function InserirAposta() {
         </div>
 
         {/* Lista de Apostas */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">
+        <div className="bg-content1 rounded-lg shadow-lg p-6">
+          <h2 className="text-xl font-semibold mb-4 text-foreground">
             Apostas Criadas ({apostas.length})
           </h2>
           {apostas.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">
+            <p className="text-default-500 text-center py-8">
               Nenhuma aposta criada ainda
             </p>
           ) : (
@@ -84,12 +84,12 @@ export default function InserirAposta() {
               {apostas.map((aposta, index) => (
                 <div
                   key={index}
-                  className="p-4 border border-gray-200 rounded-lg"
+                  className="p-4 border border-default-200 rounded-lg"
                 >
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm text-default-600 mb-2">
                     Aposta #{index + 1}
                   </p>
-                  <p className="font-mono text-lg">
+                  <p className="font-mono text-lg text-foreground">
                     {aposta.Dezenas.join(" - ")}
                   </p>
                 </div>

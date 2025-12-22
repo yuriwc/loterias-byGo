@@ -3,12 +3,14 @@ import { Button } from "@heroui/react";
 interface GridSorteioProps {
   numerosSorteados: number[];
   onInserirDezena: (dezena: number) => void;
+  onRemoverDezena?: (dezena: number) => void;
   disabled?: boolean;
 }
 
 export default function GridSorteio({
   numerosSorteados,
   onInserirDezena,
+  onRemoverDezena,
   disabled = false
 }: GridSorteioProps) {
   const numeros = Array.from({ length: 25 }, (_, i) => i + 1);
@@ -16,8 +18,13 @@ export default function GridSorteio({
   const handleClick = (numero: number) => {
     if (disabled) return;
 
-    // Só permite adicionar se o número ainda não foi sorteado
-    if (!numerosSorteados.includes(numero)) {
+    const sorteado = numerosSorteados.includes(numero);
+
+    if (sorteado && onRemoverDezena) {
+      // Remove o número se já foi sorteado
+      onRemoverDezena(numero);
+    } else if (!sorteado) {
+      // Adiciona o número se ainda não foi sorteado
       onInserirDezena(numero);
     }
   };
@@ -38,14 +45,19 @@ export default function GridSorteio({
       <div className="grid grid-cols-5 gap-2">
         {numeros.map((numero) => {
           const sorteado = isSorteado(numero);
+          const podeRemover = sorteado && onRemoverDezena && !disabled;
+          const podeAdicionar = !sorteado && !limiteAtingido && !disabled;
+
           return (
             <Button
               key={numero}
               variant={sorteado ? "primary" : "ghost"}
               size="lg"
-              isDisabled={disabled || (sorteado || limiteAtingido)}
+              isDisabled={disabled || (!podeRemover && !podeAdicionar)}
               onClick={() => handleClick(numero)}
-              className="w-full aspect-square text-lg font-bold"
+              className={`w-full aspect-square text-lg font-bold ${
+                podeRemover ? 'cursor-pointer hover:opacity-80' : ''
+              }`}
             >
               {numero}
             </Button>

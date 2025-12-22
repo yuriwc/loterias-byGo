@@ -21,7 +21,7 @@ export class Concurso {
     }
 
     inserirDezena(dezena: number) {
-        if (!this.validaNumerosSorteados() || !this.validaDezena(dezena)) 
+        if (!this.validaNumerosSorteados() || !this.validaDezena(dezena))
             throw new Error ('Erro ao inserir a dezena')
         this.numerosSorteados.push(dezena)
 
@@ -29,6 +29,22 @@ export class Concurso {
         this.apostas.forEach(aposta => {
             if (aposta.Dezenas.includes(dezena)) {
                 aposta.incrementaAcerto();
+            }
+        })
+    }
+
+    removerDezena(dezena: number) {
+        const index = this.numerosSorteados.indexOf(dezena);
+        if (index === -1) {
+            throw new Error('Dezena não encontrada nos números sorteados');
+        }
+
+        this.numerosSorteados.splice(index, 1);
+
+        // Decrementar acertos nas apostas que contêm essa dezena
+        this.apostas.forEach(aposta => {
+            if (aposta.Dezenas.includes(dezena)) {
+                aposta.decrementaAcerto();
             }
         })
     }
