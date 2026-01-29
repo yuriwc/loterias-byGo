@@ -14,10 +14,10 @@ export default function ListaApostasComAcertos({
 
   // Função para obter cor baseada na quantidade de acertos
   const getCorAcertos = (acertos: number) => {
-    if (acertos === 15) return "bg-green-100 border-green-500";
-    if (acertos >= 13) return "bg-blue-100 border-blue-500";
-    if (acertos >= 11) return "bg-yellow-100 border-yellow-500";
-    return "bg-gray-100 border-gray-300";
+    if (acertos === 15) return "border-green-500";
+    if (acertos >= 13) return "border-blue-500";
+    if (acertos >= 11) return "border-yellow-500";
+    return "border-gray-300";
   };
 
   return (
@@ -45,7 +45,7 @@ export default function ListaApostasComAcertos({
               className={`p-4 border-2 rounded-lg ${getCorAcertos(aposta.Acertos)}`}
             >
               <div className="flex justify-between items-center mb-3">
-                <p className="text-sm font-medium text-gray-700">
+                <p className="text-sm font-medium">
                   Aposta #{index + 1}
                 </p>
                 <p className="text-lg font-bold">

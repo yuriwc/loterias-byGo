@@ -67,7 +67,7 @@ export default function AcompanharResultados() {
               />
 
               {sorteioCompleto && (
-                <div className="mt-4 p-4 bg-green-100 border border-green-500 rounded-lg text-center">
+                <div className="mt-4 p-4 border border-green-500 rounded-lg text-center">
                   <p className="text-green-800 font-semibold">
                     ✓ Sorteio completo! Confira os resultados abaixo.
                   </p>
